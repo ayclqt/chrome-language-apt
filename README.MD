@@ -34,7 +34,7 @@ curl -fsSL https://raw.githubusercontent.com/ayclqt/chrome-language-apt/main/ins
 
 **Custom Default Language**
 ```bash
-curl -fsSL https://raw.githubusercontent.com/ayclqt/chrome-language-apt/main/install.sh | sudo bash -s {locale}
+curl -fsSL https://raw.githubusercontent.com/ayclqt/chrome-language-apt/main/install.sh | sudo bash -s <locale_code>
 ```
 
 For example, to set English (en_US):
@@ -55,7 +55,7 @@ sudo ./install.sh
 
 Or with custom language:
 ```bash
-sudo ./install.sh {locale}
+sudo ./install.sh <locale_code>
 ```
 
 ### What the installer does
@@ -87,8 +87,7 @@ sudo fixchrome
 
 Run with custom language:
 ```bash
-sudo fixchrome en_US
-sudo fixchrome ja_JP
+sudo fixchrome <locale_code>
 ```
 
 ## How It Works
