@@ -11,17 +11,23 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 FIXCHROME_SOURCE="$SCRIPT_DIR/fixchrome"
 FIXCHROME_DEST="/usr/local/bin/fixchrome"
 APT_HOOK_PATH="/etc/apt/apt.conf.d/99chrome-locale"
-
-# Check if fixchrome exists in current directory
-if [ ! -f "$FIXCHROME_SOURCE" ]; then
-    echo "Error: fixchrome script not found in $SCRIPT_DIR"
-    exit 1
-fi
+REPO_URL="https://raw.githubusercontent.com/ayclqt/chrome-language-apt/main"
 
 echo "Installing fixchrome with default language: $LANGUAGE_CODE"
 
-# Copy fixchrome to destination
-cp "$FIXCHROME_SOURCE" "$FIXCHROME_DEST"
+# Check if fixchrome exists in current directory
+if [ ! -f "$FIXCHROME_SOURCE" ]; then
+    echo "fixchrome not found locally, downloading from GitHub..."
+    curl -fsSL "$REPO_URL/fixchrome" -o "$FIXCHROME_DEST"
+
+    if [ ! -f "$FIXCHROME_DEST" ]; then
+        echo "Error: Failed to download fixchrome"
+        exit 1
+    fi
+else
+    echo "Using local fixchrome"
+    cp "$FIXCHROME_SOURCE" "$FIXCHROME_DEST"
+fi
 
 # Replace default language code
 sed -i "s/LANGUAGE_CODE=\"\${1:-[^}]*}\"/LANGUAGE_CODE=\"\${1:-$LANGUAGE_CODE}\"/" "$FIXCHROME_DEST"
@@ -33,7 +39,7 @@ echo "Installed $FIXCHROME_DEST"
 # Create APT hook
 cat > "$APT_HOOK_PATH" << 'EOF'
 DPkg::Post-Invoke {
-    fixchrome
+    "fixchrome 2>/dev/null || true";
 };
 EOF
 

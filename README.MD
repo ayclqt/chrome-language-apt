@@ -23,29 +23,42 @@ Sometimes you want to use Google Chrome in a different language than your system
 
 ## Installation
 
-> [!TIP]
-> Make sure to make the installer executable first:
+### Quick Install (Recommended)
 
+Using curl to download and run the installer directly:
+
+**Default Language (vi_VN)**
 ```bash
-chmod +x install.sh
+curl -fsSL https://raw.githubusercontent.com/ayclqt/chrome-language-apt/main/install.sh | sudo bash
 ```
 
-### Default Language (vi_VN)
+**Custom Default Language**
+```bash
+curl -fsSL https://raw.githubusercontent.com/ayclqt/chrome-language-apt/main/install.sh | sudo bash -s en_US
+curl -fsSL https://raw.githubusercontent.com/ayclqt/chrome-language-apt/main/install.sh | sudo bash -s ja_JP
+curl -fsSL https://raw.githubusercontent.com/ayclqt/chrome-language-apt/main/install.sh | sudo bash -s zh_CN
+```
+
+### Install from Source
+
+If you prefer to clone the repository and run locally:
 
 ```bash
+git clone https://github.com/ayclqt/chrome-language-apt.git
+cd chrome-language-apt
+chmod +x install.sh
 sudo ./install.sh
 ```
 
-### Custom Default Language
-
+Or with custom language:
 ```bash
 sudo ./install.sh en_US
-sudo ./install.sh ja_JP
-sudo ./install.sh zh_CN
 ```
 
+### What the installer does
+
 This will:
-1. Copy `fixchrome` to `/usr/local/bin/fixchrome`
+1. Copy `fixchrome` to `/usr/local/bin/fixchrome` (downloads from GitHub if not found locally)
 2. Set the specified language as default in fixchrome
 3. Make fixchrome executable
 4. Create APT hook at `/etc/apt/apt.conf.d/99chrome-locale`
