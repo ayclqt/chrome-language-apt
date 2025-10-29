@@ -1,4 +1,4 @@
-# Chrome Locale Fixer
+# Google Chrome language changer for APT-based systems
 
 Automatically set Chrome's locale on Linux by injecting `export LANGUAGE` into the Chrome launcher script.
 
@@ -65,6 +65,7 @@ This will:
 2. Set the specified language as default in fixchrome
 3. Make fixchrome executable
 4. Create APT hook at `/etc/apt/apt.conf.d/99chrome-locale`
+5. Execute fixchrome once to apply the locale immediately
 
 ## Usage
 
