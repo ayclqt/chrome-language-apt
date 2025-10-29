@@ -1,0 +1,8 @@
+#!/bin/sh
+LANGUAGE_CODE="${1:-vi_VN}"
+CHROMESCRIPT=/opt/google/chrome/google-chrome
+# Skip if LANGUAGE export already exists
+grep -q "export LANGUAGE=" "$CHROMESCRIPT" && exit 0
+# Backup and insert after first line
+cp "$CHROMESCRIPT" "$CHROMESCRIPT.old" -f
+sed -i "1 a export LANGUAGE=\"$LANGUAGE_CODE\"" "$CHROMESCRIPT"
