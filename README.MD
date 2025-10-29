@@ -18,9 +18,14 @@ Sometimes you want to use Google Chrome in a different language than your system
 - `fixchrome` - Script that modifies Chrome's launcher to set locale
 - `install.sh` - Installer that deploys fixchrome and sets up APT hook
 
+> [!NOTE]
+> Installing the next update for Google Chrome resets `/opt/google/chrome/google-chrome`, so this file editing procedure needs to be done after each update.
+
 ## Installation
 
-**Note:** Make sure to make the installer executable first:
+> [!TIP]
+> Make sure to make the installer executable first:
+
 ```bash
 chmod +x install.sh
 ```

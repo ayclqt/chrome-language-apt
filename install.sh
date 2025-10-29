@@ -33,7 +33,7 @@ echo "Installed $FIXCHROME_DEST"
 # Create APT hook
 cat > "$APT_HOOK_PATH" << 'EOF'
 DPkg::Post-Invoke {
-    "test -f /opt/google/chrome/google-chrome && fixchrome 2>/dev/null || true";
+    fixchrome
 };
 EOF
 
