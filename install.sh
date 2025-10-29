@@ -1,10 +1,7 @@
 #!/bin/bash
 
 # Check if running as root
-if [ "$EUID" -ne 0 ]; then
-    echo "Please run as root or with sudo"
-    exit 1
-fi
+[ "$EUID" -ne 0 ] && { echo "Please run as root or with sudo"; exit 1; }
 
 LANGUAGE_CODE="${1:-vi_VN}"
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -15,37 +12,19 @@ REPO_URL="https://raw.githubusercontent.com/ayclqt/chrome-language-apt/main"
 
 echo "Installing fixchrome with default language: $LANGUAGE_CODE"
 
-# Check if fixchrome exists in current directory
-if [ ! -f "$FIXCHROME_SOURCE" ]; then
-    echo "fixchrome not found locally, downloading from GitHub..."
-    curl -fsSL "$REPO_URL/fixchrome" -o "$FIXCHROME_DEST"
-
-    if [ ! -f "$FIXCHROME_DEST" ]; then
-        echo "Error: Failed to download fixchrome"
-        exit 1
-    fi
-else
-    echo "Using local fixchrome"
-    cp "$FIXCHROME_SOURCE" "$FIXCHROME_DEST"
-fi
+# Check if fixchrome exists in current directory, else download it
+cp "$(dirname "$0")/fixchrome" "$FIXCHROME_DEST" 2>/dev/null || curl -fsSL "$REPO_URL/fixchrome" -o "$FIXCHROME_DEST" || { echo "Error: Failed to get fixchrome script"; exit 1; }
 
 # Replace default language code
 sed -i "s/LANGUAGE_CODE=\"\${1:-[^}]*}\"/LANGUAGE_CODE=\"\${1:-$LANGUAGE_CODE}\"/" "$FIXCHROME_DEST"
 
 # Set executable permission
-chmod +x "$FIXCHROME_DEST"
-echo "Installed $FIXCHROME_DEST"
+chmod +x "$FIXCHROME_DEST" && echo "Installed $FIXCHROME_DEST. Default language: $LANGUAGE_CODE" || { echo "Error: Failed to set executable permission"; exit 1; }
 
 # Create APT hook
-cat > "$APT_HOOK_PATH" << 'EOF'
-DPkg::Post-Invoke {
-    fixchrome
-};
-EOF
+echo 'DPkg::Post-Invoke { "fixchrome"; };' > "$APT_HOOK_PATH" && echo "Created APT hook at $APT_HOOK_PATH"
 
-echo "Created $APT_HOOK_PATH"
-echo ""
-echo "Installation complete!"
-echo "Default language: $LANGUAGE_CODE"
-echo "The fixchrome script will run automatically after Chrome updates."
-echo "You can also run manually with custom language: sudo fixchrome <locale_code>"
+# Executable fixchrome immediately
+sudo fixchrome && echo "Initial fixchrome execution completed." || { echo "Error: fixchrome execution failed"; exit 1; }
+
+echo "Installation complete." && echo "The fixchrome script will run automatically after Chrome updates." && echo "You can also run manually with custom language: sudo fixchrome <locale_code>"
