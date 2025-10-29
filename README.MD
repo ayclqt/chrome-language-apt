@@ -34,9 +34,12 @@ curl -fsSL https://raw.githubusercontent.com/ayclqt/chrome-language-apt/main/ins
 
 **Custom Default Language**
 ```bash
+curl -fsSL https://raw.githubusercontent.com/ayclqt/chrome-language-apt/main/install.sh | sudo bash -s {locale}
+```
+
+For example, to set English (en_US):
+```bash
 curl -fsSL https://raw.githubusercontent.com/ayclqt/chrome-language-apt/main/install.sh | sudo bash -s en_US
-curl -fsSL https://raw.githubusercontent.com/ayclqt/chrome-language-apt/main/install.sh | sudo bash -s ja_JP
-curl -fsSL https://raw.githubusercontent.com/ayclqt/chrome-language-apt/main/install.sh | sudo bash -s zh_CN
 ```
 
 ### Install from Source
@@ -52,7 +55,7 @@ sudo ./install.sh
 
 Or with custom language:
 ```bash
-sudo ./install.sh en_US
+sudo ./install.sh {locale}
 ```
 
 ### What the installer does
@@ -68,6 +71,12 @@ This will:
 ### Automatic (Recommended)
 
 After installation, fixchrome runs automatically whenever Chrome is updated via APT.
+
+> [!TIP]
+> Test if it works by reinstalling Chrome:
+```bash
+sudo apt update && sudo apt install --reinstall google-chrome-stable
+```
 
 ### Manual Execution
 
