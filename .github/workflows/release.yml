@@ -8,11 +8,10 @@ on:
 
 jobs:
   release:
-  
     name: Release action
-    
+
     runs-on: ubuntu-latest
-    
+
     permissions:
       contents: write
 
@@ -20,11 +19,11 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout code
         uses: actions/checkout@v5
-          
+
       - name: Create Release
-        id: create_release
         uses: aaronbarnaby/create-release-action@v1
         with:
+          title: ${{ github.ref_name }}
           api_token: ${{ secrets.GITHUB_TOKEN }}
           release_tag: ${{ github.ref_name }}
           files: |
