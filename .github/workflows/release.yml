@@ -25,13 +25,9 @@ jobs:
         id: create_release
         uses: softprops/action-gh-release@v2
         with:
-          # Tên của release sẽ được tự động sinh từ tên tag
-          # Ví dụ: tag 'beta' sẽ có tên là 'Release beta'
-          name: Release ${{ github.ref_name }}
-          # Nội dung của release sẽ được tự động tạo từ các commit kể từ tag gần nhất
           generate_release_notes: true
           # Đường dẫn đến các file bạn muốn upload
           files: |
             fixchrome
             install.sh
-          make_latest: true
+          draft: false
