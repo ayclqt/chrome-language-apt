@@ -13,7 +13,7 @@ DOWNLOAD_URL="https://github.com/ayclqt/chrome-language-apt/releases/latest/down
 echo "Installing fixchrome with default language: $LANGUAGE_CODE"
 
 # Check if fixchrome exists in current directory, else download it
-cp "$(dirname "$0")/fixchrome" "$FIXCHROME_DEST" 2>/dev/null || {echo "fixchrome not found. Downloading..." && curl -fsSL "$DOWNLOAD_URL/fixchrome" -o "$FIXCHROME_DEST" && echo "Download complete!"} || { echo "Error: Failed to get fixchrome script"; exit 1; }
+cp "$(dirname "$0")/fixchrome" "$FIXCHROME_DEST" 2>/dev/null || { echo "fixchrome not found. Downloading..." && curl -fsSL "$DOWNLOAD_URL/fixchrome" -o "$FIXCHROME_DEST" && echo "Download complete!" } || { echo "Error: Failed to get fixchrome script"; exit 1; }
 
 # Replace default language code
 sed -i "s/LANGUAGE_CODE=\"\${1:-[^}]*}\"/LANGUAGE_CODE=\"\${1:-$LANGUAGE_CODE}\"/" "$FIXCHROME_DEST"
