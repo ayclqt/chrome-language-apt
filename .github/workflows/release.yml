@@ -19,15 +19,14 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
           
       - name: Create Release
         id: create_release
-        uses: softprops/action-gh-release@v2
+        uses: aaronbarnaby/create-release-action@v1
         with:
-          generate_release_notes: true
-          # Đường dẫn đến các file bạn muốn upload
+          api_token: ${{ secrets.GITHUB_TOKEN }}
+          release_tag: ${{ github.ref_name }}
           files: |
             fixchrome
             install.sh
-          draft: false
