@@ -23,12 +23,6 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Prepare artifacts
-        run: |
-          mkdir release-artifacts
-          cp fixchrome release-artifacts/
-          cp install.sh release-artifacts/
           
       - name: Create Release
         id: create_release
@@ -41,4 +35,5 @@ jobs:
           generate_release_notes: true
           # Đường dẫn đến các file bạn muốn upload
           files: |
-            release-artifacts/*
+            fixchrome
+            install.sh
