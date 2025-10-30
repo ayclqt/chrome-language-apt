@@ -23,7 +23,6 @@ jobs:
       - name: Create Release
         uses: aaronbarnaby/create-release-action@v1.0.0
         with:
-          title: ${{ github.ref_name }}
           api_token: ${{ secrets.GITHUB_TOKEN }}
           release_tag: ${{ github.ref_name }}
           files: |
