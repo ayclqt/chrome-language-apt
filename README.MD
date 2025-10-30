@@ -29,17 +29,17 @@ Using curl to download and run the installer directly:
 
 **Default Language (vi_VN)**
 ```bash
-curl -fsSL https://raw.githubusercontent.com/ayclqt/chrome-language-apt/main/install.sh | sudo bash
+curl -fsSL https://github.com/ayclqt/chrome-language-apt/releases/latest/download/install.sh | sudo bash
 ```
 
 **Custom Default Language**
 ```bash
-curl -fsSL https://raw.githubusercontent.com/ayclqt/chrome-language-apt/main/install.sh | sudo bash -s <locale_code>
+curl -fsSL https://github.com/ayclqt/chrome-language-apt/releases/latest/download/install.sh | sudo bash -s <locale_code>
 ```
 
 For example, to set English (en_US):
 ```bash
-curl -fsSL https://raw.githubusercontent.com/ayclqt/chrome-language-apt/main/install.sh | sudo bash -s en_US
+curl -fsSL https://github.com/ayclqt/chrome-language-apt/releases/latest/download/install.sh | sudo bash -s en_US
 ```
 
 ### Install from Source
