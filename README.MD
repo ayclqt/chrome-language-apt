@@ -78,6 +78,7 @@ After installation, fixchrome runs automatically whenever Chrome is updated via 
 ```bash
 sudo apt update && sudo apt install --reinstall google-chrome-stable
 ```
+After that, you can open Chrome to check the language
 
 ### Manual Execution
 
